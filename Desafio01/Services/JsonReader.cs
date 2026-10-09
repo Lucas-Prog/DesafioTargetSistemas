@@ -22,18 +22,19 @@ namespace Desafio01.Services
                 JsonNode jsonPuro = JsonNode.Parse(t);
                 jsonArray = jsonPuro["vendas"]?.AsArray();
 
+                string vendedor;
+                double valor;
+                foreach (JsonNode jsonItem in jsonArray) {
+                    vendedor = jsonItem["vendedor"]?.GetValue<string>();
+                    valor = jsonItem["valor"]?.GetValue<double>() ?? 0.0;
+
+                    Venda item = new Venda(vendedor, valor);
+                    vendas.Add(item);  
+                }
+
             }
             catch (Exception ex) {
                 Console.WriteLine(ex.ToString());
-            }
-
-            string vendedor;
-            double valor;
-            foreach(JsonNode jsonItem in jsonArray) {
-                vendedor = jsonItem["vendedor"]?.GetValue<string>();
-                valor = jsonItem["valor"]?.GetValue<double>() ?? 0.0;
-
-                Venda item = new Venda(vendedor, valor);
             }
 
             return vendas;
