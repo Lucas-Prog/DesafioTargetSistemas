@@ -6,12 +6,10 @@ namespace Desafio01.Models
 {
     internal class Venda
     {
-        public int Id { get; set; }
         public Vendedor Vendedor { get; set; }
         public double Valor { get; set; }
 
-        public Venda(int id, Vendedor vendedor, double valor) {
-            Id = id;
+        public Venda(Vendedor vendedor, double valor) {
             Vendedor = vendedor;
             Valor = valor;
         }
