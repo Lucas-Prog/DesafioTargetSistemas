@@ -13,7 +13,7 @@ namespace Desafio01
 
             foreach (Venda venda in vendas) {
                 try {
-                    Console.WriteLine(vendaService.GetComissao(venda.Valor).ToString("F2"));
+                    Console.WriteLine(vendaService.ToString(venda));
                 }
                 catch (ArgumentException ex) { 
                     Console.WriteLine(ex.Message); 

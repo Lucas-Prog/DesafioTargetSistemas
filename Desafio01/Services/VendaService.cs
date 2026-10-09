@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desafio01.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,6 +23,12 @@ namespace Desafio01.Services
                 throw new ArgumentException("O valor da venda não pode ser negativo");
             }
 
+        }
+
+        public string ToString(Venda venda) {
+            return $"Vendedor: {venda.Vendedor} \n" +
+                   $"Valor: {venda.Valor.ToString("F2")} \n" +
+                   $"Comissão: {GetComissao(venda.Valor).ToString("F2")} \n" ;
         }
     }
 }
