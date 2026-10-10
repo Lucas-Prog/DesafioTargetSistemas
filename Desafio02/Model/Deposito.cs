@@ -6,10 +6,10 @@ namespace Desafio02.Model
 {
     internal class Deposito
     {
-        Dictionary<int, Produto> DepositoProdutos = new Dictionary<int, Produto>();
+        public Dictionary<int, Produto> DepositoProdutos = new Dictionary<int, Produto>();
 
-        public Deposito() {
-            
+        public Deposito(Dictionary<int, Produto> depositoProdutos) {
+            DepositoProdutos = depositoProdutos;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Desafio02.Services
 {
     internal class JsonReader
     {
-        string path = @"C:\Users\Mantega\Desktop\Curso\Desafio\DesafioTargertSistemas\Desafio01\Assets\Vendas.json";
+        string path = @"C:\Users\Mantega\Desktop\Curso\Desafio\DesafioTargertSistemas\Desafio02\Assets\Json.json";
 
         public List<Produto> GetEstoque() {
             List<Produto> deposito = new List<Produto>();
@@ -27,10 +27,10 @@ namespace Desafio02.Services
             if (jsonTratado != null) {
                 foreach (JsonNode item in jsonTratado) {
                     deposito.Add(new Produto(
-                            jsonTratado["codigoProduto"].GetValue<int>(),
-                            jsonTratado["descricaoProduto"]?.GetValue<string>(),
-                            jsonTratado["estoque"].GetValue<int>()
-                        ));
+                        item["codigoProduto"].GetValue<int>(),
+                        item["descricaoProduto"].GetValue<string>(),
+                        item["estoque"].GetValue<int>()
+                    ));
                 }
 
                 return deposito;
