@@ -11,5 +11,21 @@ namespace Desafio02.Model
         public TipoMovimentacao TipoMoviementacao { get; set; }
         public int QuantidadeEstoqueAntes { get; set; }
         public int QuantidadeEstoqueDepois { get; set; }
+
+        public DepositoLog(int id, Produto produto, TipoMovimentacao tipoMovimentacao, int quantidadeEstoqueAntes, int quantidadeEstoqueDepois) {
+            Id = id;
+            Produto = produto;
+            TipoMoviementacao = tipoMovimentacao;
+            QuantidadeEstoqueAntes = quantidadeEstoqueAntes;
+            QuantidadeEstoqueDepois = quantidadeEstoqueDepois;
+        }
+
+        public override string ToString() {
+            return $"LOG: \n" +
+                $"ID: {Id}\n" +
+                $"Movimentação: {TipoMoviementacao.ToString()}\n" +
+                $"Estoque Antes: {QuantidadeEstoqueAntes}\n" +
+                $"Estoque atual: {QuantidadeEstoqueDepois}\n";
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Desafio02.Services
     internal class ServicoDeposito
     {
         private readonly Deposito _deposito;
+        private Dictionary<int,DepositoLog> depositoLogs = new Dictionary<int, DepositoLog>();
         public ServicoDeposito(Deposito deposito) {
             _deposito = deposito;
         }
@@ -15,6 +16,7 @@ namespace Desafio02.Services
         public void AddProdutoEstoque(int id, int quantidade) {
             _deposito.DepositoProdutos[id].Estoque += quantidade;
             GetEstoqueProduto(id);
+            GeraLog(id, _deposito.DepositoProdutos[id], TipoMovimentacao.Entrada, quantidade);
         }
 
         public void RemoveProdutoEstoque(int id, int quantidade) {
@@ -24,6 +26,20 @@ namespace Desafio02.Services
                 _deposito.DepositoProdutos[id].Estoque -= quantidade;
             }
             GetEstoqueProduto(id);
+            GeraLog(id, _deposito.DepositoProdutos[id], TipoMovimentacao.Saida, quantidade);
+        }
+
+        public void GeraLog(int id, Produto produto, TipoMovimentacao tipoMovimentacao, int quantidade) {
+            int ultimoLogId = depositoLogs.Count;
+            int estoqueAntes = tipoMovimentacao == TipoMovimentacao.Entrada ? produto.Estoque - quantidade : produto.Estoque + quantidade;
+            depositoLogs.Add(ultimoLogId + 1, new DepositoLog(
+                ultimoLogId + 1,
+                produto,
+                tipoMovimentacao,
+                estoqueAntes,
+                produto.Estoque
+                ));
+            Console.WriteLine(depositoLogs.Last().ToString());
         }
 
         public void GetEstoqueProduto(int id) {
@@ -31,6 +47,7 @@ namespace Desafio02.Services
                 Console.WriteLine(_deposito.DepositoProdutos[id].CodigoProduto);
                 Console.WriteLine(_deposito.DepositoProdutos[id].DescricaoProduto);
                 Console.WriteLine(_deposito.DepositoProdutos[id].Estoque);
+                Console.WriteLine();
             }
             else
                 throw new Exception("Produto não encontrado !");

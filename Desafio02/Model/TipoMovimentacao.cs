@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Desafio02.Model
 {
-    internal enum TipoMovimentacao
+    internal enum TipoMovimentacao : int
     {
         Entrada = 1,
         Saida = 2
