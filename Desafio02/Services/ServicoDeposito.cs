@@ -42,6 +42,10 @@ namespace Desafio02.Services
             Console.WriteLine(depositoLogs.Last().ToString());
         }
 
+        public bool VerificaProduto(int codId) {
+            return _deposito.DepositoProdutos.ContainsKey(codId);
+        }
+
         public void GetEstoqueProduto(int id) {
             if (_deposito.DepositoProdutos.ContainsKey(id)) {
                 Console.WriteLine(_deposito.DepositoProdutos[id].CodigoProduto);
