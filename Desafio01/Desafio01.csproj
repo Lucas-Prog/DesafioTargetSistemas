@@ -10,5 +10,11 @@
   <ItemGroup>
     <Folder Include="Assets\" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <None Update="Assets\Vendas.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

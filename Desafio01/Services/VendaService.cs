@@ -7,28 +7,25 @@ namespace Desafio01.Services
 {
     internal class VendaService
     {
-        public double GetComissao(double valor) {
-            double comissao;
-            if (valor >= 0) {
-                if (valor < 100.00)
+        internal static double GeraComissao(double valorVenda) {
+            double comissao = 0;
+            double comissaoCalculada = 0;
+            if (valorVenda >= 0) {
+                if (valorVenda < 100.00)
                     comissao = 0.0;
-                else if (valor < 500.00)
+                else if (valorVenda < 500.00)
                     comissao = 0.01;
                 else
                     comissao = 0.05;
 
-                return comissao * valor;
+                comissaoCalculada = (double)(comissao * valorVenda);
             }
             else {
-                throw new ArgumentException("O valor da venda não pode ser negativo");
+                Console.WriteLine("O valor da venda não pode ser negativo");
             }
 
-        }
+            return comissaoCalculada;
 
-        public string ToString(Venda venda) {
-            return $"Vendedor: {venda.Vendedor} \n" +
-                   $"Valor: {venda.Valor.ToString("F2")} \n" +
-                   $"Comissão: {GetComissao(venda.Valor).ToString("F2")} \n" ;
         }
     }
 }
