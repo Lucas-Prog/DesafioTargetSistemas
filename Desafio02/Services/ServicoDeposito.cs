@@ -14,22 +14,36 @@ namespace Desafio02.Services
         }
 
         public void AddProdutoEstoque(int id, int quantidade) {
-            _deposito.DepositoProdutos[id].Estoque += quantidade;
-            GetEstoqueProduto(id);
-            GeraLog(id, _deposito.DepositoProdutos[id], TipoMovimentacao.Entrada, quantidade);
-        }
-
-        public void RemoveProdutoEstoque(int id, int quantidade) {
-            if (_deposito.DepositoProdutos[id].Estoque == 0 || _deposito.DepositoProdutos[id].Estoque-quantidade < 0)
-                throw new Exception("Estoque negativado ou tentativa de retirada maior que o estoque disponivel");
-            else {
-                _deposito.DepositoProdutos[id].Estoque -= quantidade;
+            if(quantidade > 0) {
+                _deposito.DepositoProdutos[id].Estoque += quantidade;
+                GeraLog(id, _deposito.DepositoProdutos[id], TipoMovimentacao.Entrada, quantidade);
             }
-            GetEstoqueProduto(id);
-            GeraLog(id, _deposito.DepositoProdutos[id], TipoMovimentacao.Saida, quantidade);
+            else {
+                Console.WriteLine("Operação invalida, a quantidade não pode ser menor ou igual a 0");
+            }
         }
 
-        public void GeraLog(int id, Produto produto, TipoMovimentacao tipoMovimentacao, int quantidade) {
+        public bool RemoveProdutoEstoque(int id, int quantidade) {
+            bool retorno = false;
+            if (quantidade > 0) {
+                if (_deposito.DepositoProdutos[id].Estoque == 0 || _deposito.DepositoProdutos[id].Estoque-quantidade < 0) {
+
+                    Console.WriteLine("Estoque negativado ou tentativa de retirada maior que o estoque disponivel");
+                    GetEstoqueProduto(id);
+                }
+                else {
+                    _deposito.DepositoProdutos[id].Estoque -= quantidade;
+                    GeraLog(id, _deposito.DepositoProdutos[id], TipoMovimentacao.Saida, quantidade);
+                    retorno = true;
+                }
+            }
+            else {
+                Console.WriteLine("Operação invalida, a saida de estoque não pode ser indicada com sinal -, ou igual a 0");
+            }
+            return retorno;
+        }
+
+        private void GeraLog(int id, Produto produto, TipoMovimentacao tipoMovimentacao, int quantidade) {
             int ultimoLogId = depositoLogs.Count;
             int estoqueAntes = tipoMovimentacao == TipoMovimentacao.Entrada ? produto.Estoque - quantidade : produto.Estoque + quantidade;
             depositoLogs.Add(ultimoLogId + 1, new DepositoLog(
@@ -39,7 +53,7 @@ namespace Desafio02.Services
                 estoqueAntes,
                 produto.Estoque
                 ));
-            Console.WriteLine(depositoLogs.Last().ToString());
+            Console.WriteLine(depositoLogs.Last().Value.ToString());
         }
 
         public bool VerificaProduto(int codId) {
@@ -48,13 +62,13 @@ namespace Desafio02.Services
 
         public void GetEstoqueProduto(int id) {
             if (_deposito.DepositoProdutos.ContainsKey(id)) {
-                Console.WriteLine(_deposito.DepositoProdutos[id].CodigoProduto);
-                Console.WriteLine(_deposito.DepositoProdutos[id].DescricaoProduto);
-                Console.WriteLine(_deposito.DepositoProdutos[id].Estoque);
-                Console.WriteLine();
+                Console.WriteLine($"\n" +
+                                  $"Código: {_deposito.DepositoProdutos[id].CodigoProduto}\n" +
+                                  $"Produto: {_deposito.DepositoProdutos[id].DescricaoProduto}\n" +
+                                  $"Estoque: {_deposito.DepositoProdutos[id].Estoque}\n");
             }
             else
-                throw new Exception("Produto não encontrado !");
+                Console.WriteLine("Produto não encontrado !");
         }
 
         public void GetProdutos() {

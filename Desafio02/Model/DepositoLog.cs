@@ -21,9 +21,10 @@ namespace Desafio02.Model
         }
 
         public override string ToString() {
-            return $"LOG: \n" +
-                $"ID: {Id}\n" +
-                $"Movimentação: {TipoMoviementacao.ToString()}\n" +
+            return $"\nLOG: \n" +
+                $"LogId: {Id}\n" +
+                $"Codigo Produto: {Produto.CodigoProduto}\n" +
+                $"Movimentação: {TipoMoviementacao.ToString()} produto\n" +
                 $"Estoque Antes: {QuantidadeEstoqueAntes}\n" +
                 $"Estoque atual: {QuantidadeEstoqueDepois}\n";
         }
