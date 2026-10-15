@@ -11,13 +11,13 @@ namespace Desafio03.Services
         public string CalculaJuros(DateTime data, double valor) {
             int diasCorridos = ContaDiasCorridos(data);
             string mensagem = "";
-            if (diasCorridos > 0) {
+            if (diasCorridos >= 0) {
                 mensagem = $"---------------------------- \n" +
                             $"Juros Simples: {CalculaJurosSimples(diasCorridos, valor).ToString("F2")}\n" +
                             $"Juros Composto: {CalculaJurosComposto(diasCorridos, valor).ToString("F2")}";                
             }
             else {
-                mensagem = "Data de Vencimento não pode ser maior que a data atual !!!";
+                mensagem = "Não existem dias de atraso para a data informada!!!";
             }
             return mensagem;
         }        
@@ -31,8 +31,8 @@ namespace Desafio03.Services
             return juros - valor;
         }
         public int ContaDiasCorridos(DateTime dataVencimento) {
-            DateTime dataHojeUtc = DateTime.Now;
-            TimeSpan diferenca = dataHojeUtc.Subtract(dataVencimento);
+            DateTime dataHoje = DateTime.Now;
+            TimeSpan diferenca = dataHoje.Subtract(dataVencimento);
 
             return diferenca.Days;
         }
