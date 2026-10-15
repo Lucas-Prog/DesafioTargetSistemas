@@ -8,7 +8,12 @@ namespace Desafio02.Services
 {
     internal class JsonReader
     {
-        string path = @"C:\Users\Mantega\Desktop\Curso\Desafio\DesafioTargertSistemas\Desafio02\Assets\Json.json";
+        private readonly string path = Path.Combine(
+            AppContext.BaseDirectory,
+            "Assets",
+            "Json.json"
+        );
+
 
         public List<Produto> GetEstoque() {
             List<Produto> deposito = new List<Produto>();
@@ -18,7 +23,7 @@ namespace Desafio02.Services
 
             try {
                 jsonPuro = JsonNode.Parse(File.ReadAllText(path));
-                jsonTratado = jsonPuro["estoque"]?.AsArray();
+                jsonTratado = jsonPuro["estoque"].AsArray();
             }
             catch (Exception ex) {
                 Console.WriteLine(ex.Message);
